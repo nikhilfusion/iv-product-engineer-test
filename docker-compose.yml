@@ -6,21 +6,21 @@ services:
     ports:
       - "5432:5432"
     volumes:
-    - db_data:/var/lib/postgresql/data
-    - ./entrypoint-initdb.d:/docker-entrypoint-initdb.d
+      - db_data:/var/lib/postgresql/data
+      - ./entrypoint-initdb.d:/docker-entrypoint-initdb.d
     environment:
       POSTGRES_PASSWORD: postgrespassword
 
   graphql-engine:
     image: hasura/graphql-engine:v2.21.0.cli-migrations-v3
     ports:
-    - "8080:8080"
+      - "8080:8080"
     depends_on:
-    - "postgres"
+      - "postgres"
     restart: always
     volumes:
-    - ./hasura/metadata:/hasura-metadata
-    - ./hasura/migrations:/hasura-migrations
+      - ./hasura/metadata:/hasura-metadata
+      - ./hasura/migrations:/hasura-migrations
     environment:
       ## postgres database to store Hasura metadata
       HASURA_GRAPHQL_METADATA_DATABASE_URL: postgres://postgres:postgrespassword@postgres:5432/postgres
@@ -34,7 +34,8 @@ services:
       ## uncomment next line to run console offline (i.e load console assets from server instead of CDN)
       # HASURA_GRAPHQL_CONSOLE_ASSETS_DIR: /srv/console-assets
       ## uncomment next line to set an admin secret
-      # HASURA_GRAPHQL_ADMIN_SECRET: myadminsecretkey
+      HASURA_GRAPHQL_ADMIN_SECRET: myadminsecretkey
 volumes:
   db_data:
+
 

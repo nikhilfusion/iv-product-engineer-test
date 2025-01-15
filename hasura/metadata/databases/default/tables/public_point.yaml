@@ -1,0 +1,8 @@
+# array_relationships:
+# - name: user_id
+#   using:
+#     foreign_key_constraint_on: user
+
+# table:
+#   name: point
+#   schema: public
